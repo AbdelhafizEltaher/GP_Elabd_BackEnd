@@ -1,7 +1,11 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcrypt')
+<<<<<<< HEAD
 const { Register, DiActivate,Login,LoginAdmin, UpdateUserData, DeletUser, GetUserByID, GetAllUser, GetUsersStats, UpdateUserPassword,GetUserInfo ,GetNumberOfLogin , logOut} = require('../Controlers/userControlers')
+=======
+const { Register, Login, UpdateUserData, DeletUser, GetUserByID, GetAllUser, GetUsersStats, UpdateUserPassword ,GetNumberOfLogin , logOut} = require('../Controlers/userControlers')
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 const { VerfiyAuthorization, VerfiyAdmin } = require('../Controlers/Auth')
 const User = require('../Models/user')
 
@@ -10,10 +14,17 @@ router.post("/Register", async function (request, response, next) {
     try {
         const SavedUser = await Register(request.body)
         const { Password, IsAdmin, ...others } = SavedUser._doc
+<<<<<<< HEAD
         response.status(202).json(others)
     }
     catch (error) {
         response.status(401).json(error.message)
+=======
+        response.status(201).json(others)
+    }
+    catch (error) {
+        response.status(500).json(error.message)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     }
 })
 
@@ -22,10 +33,14 @@ router.post("/Login", async function (request, response, next) {
 
     response.status(status).json(result)
 })
+<<<<<<< HEAD
 router.post("/Admin/Login", async function (request, response, next) {
     const { status, result } = await LoginAdmin(request.body)
     response.status(status).json(result)
 })
+=======
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 router.get("/Logout/:id", VerfiyAuthorization,async function (request, response, next) {
     
     const updatestat = await logOut(request.params.id)
@@ -42,7 +57,11 @@ router.get("/Logout/:id", VerfiyAuthorization,async function (request, response,
 router.put("/:id", VerfiyAuthorization, async function (request, response, next) {
     try {
         if (request.body.Password) {
+<<<<<<< HEAD
             response.status(401).json("Can't Update Password")
+=======
+            response.status(404).json("Can't Update Password")
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
         }
         else {
             const UpdatedUser = await UpdateUserData(request.params.id, request.body)
@@ -51,7 +70,11 @@ router.put("/:id", VerfiyAuthorization, async function (request, response, next)
             }
             else {
                 const { password, ...others } = UpdatedUser._doc
+<<<<<<< HEAD
                 response.status(202).json(others)
+=======
+                response.status(201).json(others)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
             }
         }
 
@@ -73,7 +96,11 @@ router.put("/PasswordUpdate/:id", VerfiyAuthorization, async function (request, 
                 }
                 else {
                     const { password, ...others } = UpdatedUser._doc
+<<<<<<< HEAD
                     response.status(202).json(others)
+=======
+                    response.status(201).json(others)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
                 }
             }
             else {
@@ -82,7 +109,11 @@ router.put("/PasswordUpdate/:id", VerfiyAuthorization, async function (request, 
             }
         }
         else{
+<<<<<<< HEAD
             response.status(401).json("Can't update data")
+=======
+            response.status(404).json("Can't update data")
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
         }
     }
     catch (error) {
@@ -104,6 +135,27 @@ router.delete("/:id", VerfiyAuthorization, async function (request, response, ne
 
 })
 
+<<<<<<< HEAD
+=======
+router.get("/:id", VerfiyAuthorization, async function (request, response, next) {
+    try {
+        const UserData = await GetUserByID(request.params.id)
+        if (UserData == null) {
+            response.status(401).json("InCorrrect ID")
+        }
+        else {
+            const { password, ...others } = UserData._doc
+            response.status(201).json(others)
+        }
+
+    }
+    catch (error) {
+        response.status(401).json(error.message)
+    }
+
+})
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 router.get("/Stats/Results/Login/:id", VerfiyAuthorization, async function (request, response, next) {
     try {
         const UserData = await GetNumberOfLogin(request.params.id)
@@ -120,6 +172,7 @@ router.get("/Stats/Results/Login/:id", VerfiyAuthorization, async function (requ
     }
 
 })
+<<<<<<< HEAD
 router.get("/UserInfo", VerfiyAdmin, async function (request, response, next) {
 
     try {
@@ -131,6 +184,8 @@ router.get("/UserInfo", VerfiyAdmin, async function (request, response, next) {
         response.status(401).json(error.message)
     }
 })
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 
 router.get("/", VerfiyAdmin, async function (request, response, next) {
 
@@ -139,7 +194,11 @@ router.get("/", VerfiyAdmin, async function (request, response, next) {
         const Skip = request.query.Skip || 0
         const limit = request.query.limit || 5
         var UsersData = await GetAllUser(NewOption, Skip, limit);
+<<<<<<< HEAD
         response.status(200).json(UsersData)
+=======
+        response.status(201).json(UsersData)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     }
     catch (error) {
         response.status(401).json(error.message)
@@ -157,6 +216,7 @@ router.get("/Stats/Results", VerfiyAdmin, async function (request, response, nex
         response.status(401).json(error.message)
     }
 })
+<<<<<<< HEAD
 router.get("/:id", VerfiyAuthorization, async function (request, response, next) {
     try {
         const UserData = await GetUserByID(request.params.id)
@@ -187,5 +247,7 @@ router.put("/Active/:id", VerfiyAdmin, async function (request, response, next) 
 
 })
 
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 
 module.exports = router

@@ -1,10 +1,15 @@
 
 const Categorie = require('../Models/Categorie')
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 async function CreateCategorie(Data) {
             const NewCategorie = new Categorie({
                 CatArName: Data.CatArName,
                 CatEnName: Data.CatEnName,
+<<<<<<< HEAD
                 SubCategorieID:Data.SubCategorieID,
                 CatArSize:Data.CatArSize,
                 CatEnSize:Data.CatEnSize
@@ -20,6 +25,21 @@ async function UpdateCategorie(catId,data) {
         else{
             return "Categorie ID Incorrect"
         }}
+=======
+                SubCategorieID:Data.SubCategorieID
+            })
+
+            return await NewCategorie.save()
+    
+}
+
+
+async function UpdateCategorie(catId,data) {
+    const cat= await Categorie.findById(catId)
+    if(cat){
+            return await Categorie.findByIdAndUpdate(catId, { $set: data, }, { new: true, runValidators: true }).populate( 'SubCategorieID.SubCat' )
+    }}
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 
 async function GetAllCategories(ArName,EnName) {
     if (ArName) {

@@ -9,7 +9,11 @@ const {VerfiyAdmin} = require('../Controlers/Auth')
 router.post("/", VerfiyAdmin, async function (request, response, next) {
     try {
         const Categorie = await CreateCategorie(request.body)
+<<<<<<< HEAD
         response.status(202).json(Categorie)
+=======
+        response.status(200).json(Categorie)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     }
     catch (error) {
         response.status(401).json(error.message)
@@ -54,7 +58,11 @@ router.get("/:id", VerfiyAdmin, async function (request, response, next) {
 })
 
 
+<<<<<<< HEAD
 router.get("/" ,async function (request, response, next) {
+=======
+router.get("/", VerfiyAdmin ,async function (request, response, next) {
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     try {
         const ArName = request.query.ArName 
         const EnName = request.query.EnName

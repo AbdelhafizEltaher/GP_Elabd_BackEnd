@@ -11,7 +11,10 @@ var UserSchema = mongoose.Schema({
     IsAdmin: { type: Boolean, default: false },
     NumberOFLogin:{type:Number , default:0},
     IsActive: { type: Boolean},
+<<<<<<< HEAD
     Active:{type:Boolean, default:true}
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 },
 
     { timestamps: true })

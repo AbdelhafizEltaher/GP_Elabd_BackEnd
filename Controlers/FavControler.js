@@ -4,6 +4,7 @@ const Product = require('../Models/product')
 const User = require('../Models/user')
 async function addFav(UserID, RequestData) {
 
+<<<<<<< HEAD
      const oldfav =await Fav.find({"ProductID":RequestData.ProductID})
      if(oldfav){
         const newFav = new Fav({
@@ -18,6 +19,15 @@ async function addFav(UserID, RequestData) {
         return null
      }
 
+=======
+    const newFav = new Fav({
+        UserId: UserID,
+        ProductID: RequestData.ProductID,
+    })
+    const storedProduct = await Product.findById(RequestData.ProductID)
+    await Product.findByIdAndUpdate(RequestData.ProductID,{$set:{"NumberOfFav":storedProduct.NumberOfFav+1}})
+    return newFav.save()
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
   
 }
 

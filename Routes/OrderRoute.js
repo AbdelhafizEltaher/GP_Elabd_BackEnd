@@ -11,6 +11,7 @@ const {VerfiyAuthorization,VerfiyAdmin , VerfiyUser} = require('../Controlers/Au
 // Make Order for only registered Users
 router.post("/", VerfiyUser, async function (request, response, next) {
     try {
+<<<<<<< HEAD
         const order = await CreateOrder(request.User.id,request.body)
         if(order){
             response.status(202).json(order)
@@ -20,6 +21,11 @@ router.post("/", VerfiyUser, async function (request, response, next) {
             response.status(401).json('inCorrect Infromation')
 
         }
+=======
+        console.log(request.body);
+        const order = await CreateOrder(request.User.id,request.body)
+        response.status(200).json(order)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     }
     catch (error) {
         response.status(401).json(error.message)
