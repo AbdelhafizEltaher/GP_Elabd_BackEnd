@@ -2,6 +2,7 @@ const { find } = require('../Models/Cart')
 const Cart = require('../Models/Cart')
 const Product = require('../Models/product')
 const User = require('../Models/user')
+<<<<<<< HEAD
 
 async function addToCart(UserID, RequestData) {
 
@@ -21,6 +22,21 @@ async function addToCart(UserID, RequestData) {
     }
 
 }
+=======
+async function addToCart(UserID, RequestData) {
+
+    const newCart = new Cart({
+        UserId: UserID,
+        ProductID: RequestData.ProductID,
+    })
+    
+    const storedProduct = await Product.findById(RequestData.ProductID)
+    await Product.findByIdAndUpdate(RequestData.ProductID,{$set:{"NumberOfCarts":storedProduct.NumberOfCarts+1}})
+    return newCart.save()
+}
+
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 async function removeFromCart(cartid , UserID) {
     let catprd = await Cart.findById(cartid)
     if (catprd == null) {
@@ -37,6 +53,10 @@ async function removeFromCart(cartid , UserID) {
         return "Product Deleted Successfuly"
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 async function GetAllCArts(UserID) {
     const user = await User.findById(UserID)
     if (user) {
@@ -47,6 +67,9 @@ async function GetAllCArts(UserID) {
     }
 
 }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 module.exports = { addToCart, removeFromCart , GetAllCArts}

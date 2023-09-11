@@ -34,7 +34,11 @@ router.put("/:id", VerfiyAdmin, async function (request, response, next) {
 })
 
 
+<<<<<<< HEAD
 router.get("/:id", async function (request, response, next) {
+=======
+router.get("/:id", VerfiyAdmin, async function (request, response, next) {
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     try {
         const SubCategorie = await GetSubCategorieByID(request.params.id)
         if(SubCategorie){
@@ -54,7 +58,11 @@ router.get("/:id", async function (request, response, next) {
 })
 
 
+<<<<<<< HEAD
 router.get("/" ,async function (request, response, next) {
+=======
+router.get("/", VerfiyAdmin ,async function (request, response, next) {
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     try {
         const ArName = request.query.ArName 
         const EnName = request.query.EnName

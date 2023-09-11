@@ -1,16 +1,25 @@
 const router = require('express').Router()
 const {VerfiyAdmin} = require('../Controlers/Auth')
+<<<<<<< HEAD
 const { AddNewProduct, UpdateProduct, GetAllProducts, GetProductById, DeletProducById ,GetProductsStats ,GetProductInfo } = require('../Controlers/productControlers')
 const cloudinary = require("../Controlers/Cloud");
 const uploader = require("../Controlers/Multer");
 const Product = require("../Models/product")
+=======
+const { AddNewProduct, UpdateProduct, GetAllProducts, GetProductById, DeletProducById ,GetProductsStats } = require('../Controlers/productControlers')
+
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 router.post("/", VerfiyAdmin, async function (request, response, next) {
    try {
       const NewProduct = await AddNewProduct(request.body)
       response.status(200).json(NewProduct)
    }
    catch (err) {
+<<<<<<< HEAD
       response.status(401).json(err.message)
+=======
+      response.status(500).json(err.message)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
    }
 })
 
@@ -28,6 +37,22 @@ router.put("/:id", VerfiyAdmin, async function (request, response, next) {
    }
 })
 
+<<<<<<< HEAD
+=======
+router.get("/:id", async function (request, response, next) {
+   try {
+      const ProductData = await GetProductById(request.params.id)
+      if (ProductData) {
+         response.status(200).json(ProductData)
+      } else {
+         response.status(401).json("InCorrrect Product ID")
+      }
+   }
+   catch (error) {
+      response.status(401).json(error.message)
+   }
+})
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 router.get("/", async function (request, response, next) {
    try {
       let limit = request.query.limit || 10
@@ -38,10 +63,14 @@ router.get("/", async function (request, response, next) {
       let maxprice = request.query.maxprice 
       let CatID=request.query.Categorie
       let SubCatID=request.query.SubCategorie
+<<<<<<< HEAD
       let oldest = request.query.oldest
       let newest = request.query.newest
       let alphabetical=request.query.alphabetical
       let Products = await GetAllProducts(skip, limit, EnName, ArName, minprice, maxprice, CatID , SubCatID,oldest,newest,alphabetical)
+=======
+      let Products = await GetAllProducts(skip, limit, EnName, ArName, minprice, maxprice, CatID , SubCatID)
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
       response.status(200).json(Products)
    }
    catch (err) {
@@ -69,6 +98,7 @@ router.get("/Stats/Results", VerfiyAdmin, async function (request, response, nex
       response.status(401).json(error.message)
   }
 })
+<<<<<<< HEAD
 
 router.get("/ProductInfo", VerfiyAdmin, async function (request, response, next) {
 
@@ -117,4 +147,6 @@ console.log(image);
  }
 
  }) 
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 module.exports = router

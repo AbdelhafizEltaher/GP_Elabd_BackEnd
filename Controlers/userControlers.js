@@ -10,7 +10,10 @@ async function Register(RequestData) {
         Password: RequestData.Password,
         Gender: RequestData.Gender,
         MobileNumber: RequestData.MobileNumber,
+<<<<<<< HEAD
         IsAdmin:RequestData.IsAdmin,
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
     })
     return newUser.save()
 }
@@ -27,6 +30,7 @@ async function Login(RequestData) {
             return { status: 401, result: "InCorrect Password" }
         }
         else {
+<<<<<<< HEAD
             if(StoredUser.Active){
                 const { Password, IsAdmin,NumberOFLogin,IsActive ,...others } = StoredUser._doc
                 const AccessToken = jwt.sign({
@@ -41,10 +45,21 @@ async function Login(RequestData) {
                 return { status: 401, result: "Now You Are Not activeted" }
             }
 
+=======
+            const { Password, IsAdmin,NumberOFLogin,IsActive ,...others } = StoredUser._doc
+            const AccessToken = jwt.sign({
+                id: StoredUser.id, IsAdmin: StoredUser.IsAdmin, FirstName: StoredUser.FirstName
+            }, process.env.SECRET_KEY, {
+                expiresIn: "24h"
+            })
+         await User.findByIdAndUpdate(StoredUser.id,{$set:{"NumberOFLogin":StoredUser.NumberOFLogin+1 , "IsActive": true}})
+            return { status: 200, result: { ...others, AccessToken } }
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
         }
     }
 }
 
+<<<<<<< HEAD
 
 async function LoginAdmin(RequestData) {
 
@@ -75,6 +90,8 @@ async function LoginAdmin(RequestData) {
        
     }
 }
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 async function UpdateUserData(userID, data) {
  return await User.findByIdAndUpdate(userID, { $set: data, }, { new: true, runValidators: true })
 }
@@ -131,6 +148,7 @@ async function GetAllUser(newOption, skip, limit) {
     }
 }
 
+<<<<<<< HEAD
 async function GetUserInfo() {
     const MostLogin =  await User.find().sort({ 'NumberOFLogin': -1 }).limit(3)
     const ActivePeople = await User.find({"IsActive":true}) 
@@ -139,6 +157,8 @@ async function GetUserInfo() {
     
 }
 
+=======
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
 async function GetNumberOfLogin(userID){
 
     const user = await User.findById(userID)
@@ -170,6 +190,7 @@ async function GetUsersStats() {
 
 }
 
+<<<<<<< HEAD
 async function DiActivate(UserID){
     const user= await User.findById(UserID)
     if(user){
@@ -191,3 +212,7 @@ async function DiActivate(UserID){
 
 
 module.exports = { Register,LoginAdmin, DiActivate,Login, UpdateUserData, DeletUser, GetUserByID, GetAllUser, GetUsersStats , UpdateUserPassword , GetNumberOfLogin ,GetUserInfo, logOut}
+=======
+
+module.exports = { Register, Login, UpdateUserData, DeletUser, GetUserByID, GetAllUser, GetUsersStats , UpdateUserPassword , GetNumberOfLogin , logOut}
+>>>>>>> c64d820030ac9b9bcef0dce520d877917ad169a9
